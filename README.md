@@ -2,7 +2,7 @@
 
 This is a simple website I set up to fetch data from WordPress API. Its frontend was sprung up with react-bootstrap for time efficiency.
 
-Here is the full recording for a walk through of the site.
+Here is the full recording of a quick walkthrough of the site.
 https://www.loom.com/embed/f49f7c90a76743f3ad98df5a9b2155ee
 
 
