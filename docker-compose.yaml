@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+  # Database
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    networks:
+      - wpsite
+  # phpmyadmin
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - wpsite
+  # Wordpress
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress
+    ports:
+      - '8000:80'
+      # - '20:20'
+      # - '21:21'
+    restart: always
+    volumes:
+      # These binding mounts makes sure everything from the OS comes into
+      # the container with the correct rights.
+      - ./wp-content/uploads:/usr/src/wordpress/wp-content/uploads
+      - ./wp-content/plugins:/usr/src/wordpress/wp-content/plugins
+      - ./wp-content/themes:/usr/src/wordpress/wp-content/themes
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+
+      # The wordpress image then copies everything from
+      # /usr/src/wordpress to /var/www/html/
+      # including the correct rights
+
+      # These binding mounts make sure everything that is added through
+      # the WordPress application also comes back to your project repository.
+      - ./wp-content/uploads:/var/www/html/wp-content/uploads
+      - ./wp-content/plugins:/var/www/html/wp-content/plugins
+      - ./wp-content/themes:/var/www/html/wp-content/themes
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    networks:
+      - wpsite
+networks:
+  wpsite:
+volumes:
+  db_data:
