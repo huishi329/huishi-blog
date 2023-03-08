@@ -6,7 +6,7 @@ Here is the full recording of a quick walkthrough of the site.
 https://www.loom.com/embed/f49f7c90a76743f3ad98df5a9b2155ee
 
 
-<img style="max-width:300px;" src="https://im3.ezgif.com/tmp/ezgif-3-71df9f7b7a.gif">
+<img style="max-width:300px;" src="https://huishi.s3.us-west-2.amazonaws.com/huishi-blog.gif">
 
 
 ### Fetch data with fetch API
